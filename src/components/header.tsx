@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Button, Drawer, Menu } from "antd";
 import { FaBars } from "react-icons/fa";
