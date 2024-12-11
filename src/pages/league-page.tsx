@@ -81,6 +81,12 @@ const LeaguePage = () => {
       render: (text: string) => (text ? <p>{text}</p> : 0),
     },
     {
+      title: "Goal Difference",
+      dataIndex: "goalDifference",
+      key: "goalDifference",
+      render: (text: string) => (text ? <p>{text}</p> : 0),
+    },
+    {
       title: "Points",
       dataIndex: "points",
       key: "points",
@@ -211,6 +217,9 @@ const LeaguePage = () => {
         dataSource={sortedPlayers.map(
           (player: Record<string, any>, index: number) => ({
             ...player,
+            goalDifference:
+              (player.goalsScored || 0) - (player.goalsConceded || 0),
+            points: calculatePoints(player),
             index: index + 1,
           })
         )}
