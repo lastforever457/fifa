@@ -1,13 +1,11 @@
-import { Drawer, Form, Input, message, Table } from "antd";
-import React, { useEffect, useMemo, useState } from "react";
+import { Form, Input, message, Table, Drawer } from "antd";
+import { useEffect, useMemo, useState } from "react";
 import { useAdmin } from "../hooks/use-admin";
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [editingData, setEditingData] = useState<Record<string, any> | null>(
-    null
-  );
+
   const { isAdmin } = useAdmin();
 
   useEffect(() => {
