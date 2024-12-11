@@ -1,4 +1,4 @@
-import { Card, Col, Divider, Row, Table } from "antd";
+import { Card, Col, Divider, Form, Input, Modal, Row, Table } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAdmin } from "../hooks/use-admin";
@@ -6,6 +6,8 @@ import { useAdmin } from "../hooks/use-admin";
 const LeaguePage = () => {
   const { id } = useParams();
   const [data, setData] = useState<Record<string, any>>({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingGame, setEditingGame] = useState<Record<string, any>>({});
   const { isAdmin } = useAdmin();
 
   useEffect(() => {
@@ -68,6 +70,49 @@ const LeaguePage = () => {
     },
   ];
 
+  const handleEdit = (game: Record<string, any>) => {
+    setEditingGame(game);
+    setIsModalOpen(true);
+  };
+
+  const handleModalOk = (score: string) => {
+    const newScore = score.split("-");
+    const firstPlayerGoals = Number(newScore[0]);
+    const secondPlayerGoals = Number(newScore[1]);
+
+    const firstPlayer = data.players.find(
+      (player: Record<string, any>) => player.id === editingGame.firstPlayerId
+    );
+    const secondPlayer = data.players.find(
+      (player: Record<string, any>) => player.id === editingGame.secondPlayerId
+    );
+
+    if (firstPlayerGoals > secondPlayerGoals) {
+      firstPlayer.wins += 1;
+      secondPlayer.losses += 1;
+    } else if (secondPlayerGoals > firstPlayerGoals) {
+      firstPlayer.losses += 1;
+      secondPlayer.wins += 1;
+    } else {
+      firstPlayer.draws += 1;
+      secondPlayer.draws += 1;
+    }
+
+    firstPlayer.goalsScored += firstPlayerGoals;
+    secondPlayer.goalsScored += secondPlayerGoals;
+    firstPlayer.goalsConceded += secondPlayerGoals;
+    secondPlayer.goalsConceded += firstPlayerGoals;
+
+    setData((prevState) => ({
+      ...prevState,
+      players: data.players.map((player: Record<string, any>) =>
+        player.id === firstPlayer.id ? firstPlayer : player
+      ),
+    }));
+
+    setIsModalOpen(false);
+  };
+
   return (
     <div>
       <div className="flex">
@@ -114,7 +159,10 @@ const LeaguePage = () => {
                       </div>
                       {isAdmin && (
                         <div className="flex justify-center items-center gap-2">
-                          <button className="bg-blue-500 px-2 py-1 rounded-md text-white">
+                          <button
+                            className="bg-blue-500 px-2 py-1 rounded-md text-white"
+                            onClick={() => handleEdit(game)}
+                          >
                             Edit
                           </button>
                         </div>
@@ -127,6 +175,27 @@ const LeaguePage = () => {
           </Row>
         </div>
       ))}
+      <Modal
+        title="Edit score"
+        open={isModalOpen}
+        onOk={() => handleModalOk(editingGame.score)}
+        onCancel={() => setIsModalOpen(false)}
+      >
+        <Form layout="vertical">
+          <Form.Item label="Score">
+            <Input
+              placeholder="2-1"
+              value={editingGame.score}
+              onChange={(e: any) =>
+                setEditingGame((prevState) => ({
+                  ...prevState,
+                  score: e.target.value,
+                }))
+              }
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };

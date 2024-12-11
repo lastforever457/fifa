@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Button, Drawer, Menu } from "antd";
 import { FaBars } from "react-icons/fa";
 
@@ -8,7 +8,9 @@ const Header = () => {
   return (
     <header className="border-b">
       <div className="flex justify-between items-center mx-auto px-5 md:px-10 py-5 container">
-        <h1 className="text-base md:text-3xl">FIFA Tournament</h1>
+        <Link to={"/"}>
+          <h1 className="text-base md:text-3xl">FIFA Tournament</h1>
+        </Link>
         <Menu
           mode="horizontal"
           className="md:flex justify-center sm:justify-end hidden"
