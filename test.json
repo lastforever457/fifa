@@ -1,0 +1,58 @@
+{
+  "name": "La Liga",
+  "players": [
+    {
+      "id": 1,
+      "name": "Abdulloh",
+      "gamesPlayed": 0,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "goalsScored": 0,
+      "goalsConceded": 0,
+      "points": 0
+    },
+    {
+      "id": 2,
+      "name": "Sanjar",
+      "gamesPlayed": 0,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "goalsScored": 0,
+      "goalsConceded": 0,
+      "points": 0
+    },
+    {
+      "id": 3,
+      "name": "Hikmatilla",
+      "gamesPlayed": 0,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "goalsScored": 0,
+      "goalsConceded": 0,
+      "points": 0
+    },
+    {
+      "id": 4,
+      "name": "Kamron",
+      "gamesPlayed": 0,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "goalsScored": 0,
+      "goalsConceded": 0,
+      "points": 0
+    }
+  ],
+  "games": [
+    {
+      "id": 1,
+      "player1Id": 1,
+      "player2Id": 2,
+      "player1Goals": 0,
+      "player2Goals": 0
+    }
+  ]
+}
