@@ -107,81 +107,70 @@ const League = () => {
   };
 
   const generateRounds = (players: any[]) => {
-    const totalRounds = players.length - 1;
-    const matchesPerRound = Math.floor(players.length / 2);
-    const rounds = [];
+    // Fixed pairing pattern for gamesCount = 3
+    const fixedPairings = [
+      // Round 1: A vs C, B vs D
+      [
+        { first: 0, second: 2 }, // A vs C
+        { first: 1, second: 3 }, // B vs D
+      ],
+      // Round 2: A vs B, C vs D
+      [
+        { first: 0, second: 1 }, // A vs B
+        { first: 2, second: 3 }, // C vs D
+      ],
+      // Round 3: A vs D, C vs B
+      [
+        { first: 0, second: 3 }, // A vs D
+        { first: 2, second: 1 }, // C vs B
+      ],
+    ];
 
-    // Generate rounds using round-robin algorithm
-    for (let round = 0; round < totalRounds; round++) {
-      const roundMatches = [];
-      const playersCopy = [...players];
+    const rounds: Record<string, any>[] = [];
 
-      // Keep first player fixed, rotate others
-      const firstPlayer = playersCopy.shift()!;
-
-      // Rotate remaining players
-      if (round > 0) {
-        playersCopy.push(playersCopy.shift()!);
-      }
-
-      // Generate matches for this round
-      for (let match = 0; match < matchesPerRound; match++) {
-        const homePlayer = match === 0 ? firstPlayer : playersCopy[match - 1];
-        const awayPlayer = playersCopy[playersCopy.length - 1 - match];
-
-        roundMatches.push({
-          id: Math.random().toString(36).substr(2, 9),
-          roundId: round + 1,
-          firstPlayerId: homePlayer.id,
-          secondPlayerId: awayPlayer.id,
-          firstPlayerName: homePlayer.name,
-          secondPlayerName: awayPlayer.name,
-          score: "-",
-        });
-      }
+    fixedPairings.forEach((roundPairs, roundIndex) => {
+      const roundMatches = roundPairs.map((pair) => ({
+        id: Math.random().toString(36).substr(2, 9),
+        roundId: roundIndex + 1,
+        firstPlayerId: players[pair.first].id,
+        secondPlayerId: players[pair.second].id,
+        firstPlayerName: players[pair.first].name,
+        secondPlayerName: players[pair.second].name,
+        score: "-",
+      }));
 
       rounds.push({
-        id: round + 1,
-        fixture: round + 1,
+        id: roundIndex + 1,
+        fixture: roundIndex + 1,
         games: roundMatches,
       });
-    }
+    });
 
     return rounds;
   };
 
   const generateFixtures = (rounds: any[], gamesCount: number) => {
-    /**
-     * fixtures is an array of objects, each representing a round of fixtures.
-     * The objects have the following properties:
-     * - id: a unique identifier for the round
-     * - fixture: a number representing the round number
-     * - games: an array of objects, each representing a game in the round
-     *   - id: a unique identifier for the game
-     *   - roundId: the round number
-     *   - firstPlayerId: the player id of the first player
-     *   - secondPlayerId: the player id of the second player
-     *   - firstPlayerName: the name of the first player
-     *   - secondPlayerName: the name of the second player
-     *   - score: the score of the game, initially set to "-"
-     */
+    if (gamesCount === 3) {
+      return rounds; // Return the exact pattern for gamesCount = 3
+    }
+
+    // For other gamesCount values, repeat the pattern
     const fixtures: Record<string, any>[] = [];
-    const totalRounds = rounds.length;
-    const repeatCount = Math.ceil(
-      gamesCount / (totalRounds * Math.floor(rounds[0].games.length))
-    );
+    const repeatCount = Math.ceil(gamesCount / 3);
 
     for (let i = 0; i < repeatCount; i++) {
       rounds.forEach((round, index) => {
-        fixtures.push({
-          ...round,
-          id: i * totalRounds + index + 1,
-          fixture: i * totalRounds + index + 1,
-          games: round.games.map((game: any) => ({
-            ...game,
-            id: Math.random().toString(36).substr(2, 9),
-          })),
-        });
+        if (i * 3 + index + 1 <= gamesCount) {
+          fixtures.push({
+            ...round,
+            id: i * rounds.length + index + 1,
+            fixture: i * rounds.length + index + 1,
+            games: round.games.map((game: Record<string, any>) => ({
+              ...game,
+              id: Math.random().toString(36).substr(2, 9),
+            })),
+          });
+        }
       });
     }
 

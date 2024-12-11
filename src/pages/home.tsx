@@ -61,7 +61,11 @@ const Home = () => {
     <div>
       <h1 className="font-bold text-xl">Players</h1>
       <div className="mt-5">
-        <Table dataSource={data} columns={columns} />
+        <Table
+          dataSource={data}
+          columns={columns}
+          scroll={{ x: "max-content" }}
+        />
       </div>
       <Drawer
         title="Edit Player"
