@@ -1,14 +1,4 @@
-import {
-  Card,
-  Col,
-  Divider,
-  Form,
-  Input,
-  Modal,
-  Row,
-  Table,
-  message,
-} from "antd";
+import { Form, Input, Modal, message } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAdmin } from "../hooks/use-admin";
@@ -46,68 +36,6 @@ const LeaguePage = () => {
       </div>
     );
   }
-
-  const columns = [
-    {
-      title: "#",
-      dataIndex: "index",
-      key: "index",
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Games Played",
-      dataIndex: "gamesPlayed",
-      key: "gamesPlayed",
-      render: (text: string) => (text ? <p>{text}</p> : 0),
-    },
-    {
-      title: "Wins",
-      dataIndex: "wins",
-      key: "wins",
-      render: (text: string) => (text ? <p>{text}</p> : 0),
-    },
-    {
-      title: "Draws",
-      dataIndex: "draws",
-      key: "draws",
-      render: (text: string) => (text ? <p>{text}</p> : 0),
-    },
-    {
-      title: "Losses",
-      dataIndex: "losses",
-      key: "losses",
-      render: (text: string) => (text ? <p>{text}</p> : 0),
-    },
-    {
-      title: "Goals Scored",
-      dataIndex: "goalsScored",
-      key: "goalsScored",
-      render: (text: string) => (text ? <p>{text}</p> : 0),
-    },
-    {
-      title: "Goals Conceded",
-      dataIndex: "goalsConceded",
-      key: "goalsConceded",
-      render: (text: string) => (text ? <p>{text}</p> : 0),
-    },
-    {
-      title: "Goal Difference",
-      dataIndex: "goalDifference",
-      key: "goalDifference",
-      render: (text: string) => (text ? <p>{text}</p> : 0),
-    },
-    {
-      title: "Points",
-      dataIndex: "points",
-      key: "points",
-      render: (text: string) => (text ? <p>{text}</p> : 0),
-    },
-  ];
-
   const handleEdit = (game: Record<string, any>) => {
     setEditingGame(game);
     setIsModalOpen(true);
