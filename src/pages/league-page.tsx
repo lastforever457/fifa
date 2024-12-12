@@ -441,19 +441,19 @@ const LeaguePage = () => {
             </div>
           </div>
         ) : (
-          <div className="space-y-8">
+          <div className="space-y-8 md:space-y-12 lg:space-y-16">
             {data.games.map((turn: Record<string, any>) => (
               <div
                 key={turn.id}
-                className="bg-gray-800/50 shadow-xl backdrop-blur-md rounded-xl overflow-hidden"
+                className="bg-gray-800/50 shadow-xl backdrop-blur-md rounded-xl md:w-1/2 lg:w-1/3 xl:w-1/4 overflow-hidden"
               >
                 <div className="bg-gray-900/50 px-6 py-4">
-                  <h2 className="font-semibold text-xl">
+                  <h2 className="font-semibold text-xl sm:text-base">
                     Round {turn.fixture}
                   </h2>
                 </div>
                 <div className="p-6">
-                  <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                  <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {turn.games.map((game: Record<string, any>) => {
                       const firstPlayer = data.players.find(
                         (player: Record<string, any>) =>
@@ -473,36 +473,30 @@ const LeaguePage = () => {
                           <div className="relative bg-gray-900 p-6 rounded-lg">
                             <div className="flex justify-between items-center space-x-4">
                               <div className="flex flex-1 items-center space-x-3">
-                                <div className="flex justify-center items-center bg-gradient-to-br from-blue-500 to-purple-600 rounded-full w-10 h-10 font-bold text-white">
-                                  {firstPlayer?.name.charAt(0)}
-                                </div>
-                                <span className="font-medium truncate">
+                                <span className="font-medium sm:text-sm truncate">
                                   {firstPlayer?.name}
                                 </span>
                               </div>
                               <div className="flex items-center space-x-3">
-                                <span className="font-bold text-2xl">
+                                <span className="font-bold text-2xl sm:text-base">
                                   {score1}
                                 </span>
                                 <span className="text-gray-400">-</span>
-                                <span className="font-bold text-2xl">
+                                <span className="font-bold text-2xl sm:text-base">
                                   {score2}
                                 </span>
                               </div>
                               <div className="flex flex-1 justify-end items-center space-x-3">
-                                <span className="font-medium truncate">
+                                <span className="font-medium sm:text-sm truncate">
                                   {secondPlayer?.name}
                                 </span>
-                                <div className="flex justify-center items-center bg-gradient-to-br from-purple-500 to-pink-600 rounded-full w-10 h-10 font-bold text-white">
-                                  {secondPlayer?.name.charAt(0)}
-                                </div>
                               </div>
                             </div>
                             {isAdmin && (
                               <div className="flex justify-center mt-4">
                                 <button
                                   onClick={() => handleEdit(game)}
-                                  className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-200"
+                                  className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-medium text-sm sm:text-xs transition-colors duration-200"
                                 >
                                   Edit Result
                                 </button>
