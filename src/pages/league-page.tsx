@@ -466,7 +466,7 @@ const LeaguePage = () => {
                       );
                       const [score1, score2] = game.score
                         ? game.score.split("-").map(Number)
-                        : [0, 0];
+                        : ["", ""];
 
                       return (
                         <div key={game.id} className="relative group">
