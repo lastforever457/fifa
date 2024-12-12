@@ -1,26 +1,26 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AppLayout from "./layout/app-layout";
-import League from "./pages/league";
-import Home from "./pages/home";
-import Admin from "./pages/admin";
+import MainLayout from "./layout/main-layout";
+import HomePage from "./pages/home-page";
+import LeaguesPage from "./pages/leagues-page";
 import LeaguePage from "./pages/league-page";
+import Admin from "./pages/admin";
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <AppLayout />,
+      element: <MainLayout />,
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: <HomePage />,
         },
         {
-          path: "/league",
-          element: <League />,
+          path: "/leagues",
+          element: <LeaguesPage />,
         },
         {
-          path: "/league/:id",
+          path: "/leagues/:id",
           element: <LeaguePage />,
         },
         {
@@ -30,6 +30,7 @@ const App = () => {
       ],
     },
   ]);
+
   return <RouterProvider router={router} />;
 };
 
