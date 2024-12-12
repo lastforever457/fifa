@@ -464,9 +464,10 @@ const LeaguePage = () => {
                         (player: Record<string, any>) =>
                           player.id === game.secondPlayerId
                       );
-                      const [score1, score2] = game.score
-                        ? game.score.split("-").map(Number)
-                        : ["", ""];
+                      const [score1, score2] =
+                        game.score !== "-"
+                          ? game.score.split("-").map(Number)
+                          : ["", ""];
 
                       return (
                         <div key={game.id} className="relative group">
