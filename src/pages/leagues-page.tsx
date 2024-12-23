@@ -209,7 +209,7 @@ const LeaguesPage = () => {
         </div>
 
         <Row gutter={[16, 16]}>
-          {leagues.map((league) => (
+          {leagues.reverse().map((league) => (
             <Col xs={24} sm={12} md={8} lg={6} key={league.id}>
               <Link to={`/leagues/${league.id}`} className="block h-full">
                 <Card

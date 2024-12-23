@@ -442,76 +442,94 @@ const LeaguePage = () => {
             </div>
           </div>
         ) : (
-          <div className="space-y-8">
-            {data.games.map((turn: Record<string, any>) => (
-              <div
-                key={turn.id}
-                className="bg-gray-800/50 shadow-xl backdrop-blur-md rounded-xl overflow-hidden"
-              >
-                <div className="bg-gray-900/50 px-6 py-4">
-                  <h2 className="font-semibold text-xl">
-                    Round {turn.fixture}
-                  </h2>
-                </div>
-                <div className="p-6">
-                  <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    {turn.games.map((game: Record<string, any>) => {
-                      const firstPlayer = data.players.find(
-                        (player: Record<string, any>) =>
-                          player.id === game.firstPlayerId
-                      );
-                      const secondPlayer = data.players.find(
-                        (player: Record<string, any>) =>
-                          player.id === game.secondPlayerId
-                      );
-                      const [score1, score2] =
-                        game.score !== "-"
-                          ? game.score.split("-").map(Number)
-                          : ["", ""];
+          <div className={"w-full h-screen overflow-y-auto"}>
+            <div className="space-y-8">
+              {data.games.map((turn: Record<string, any>) => (
+                <div
+                  key={turn.id}
+                  className="bg-gray-800/50 shadow-xl backdrop-blur-md rounded-xl overflow-hidden"
+                >
+                  <div className="bg-gray-900/50 px-6 py-4">
+                    <h2 className="font-semibold text-xl">
+                      Round {turn.fixture}
+                    </h2>
+                  </div>
+                  <div className="p-6">
+                    <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                      {turn.games.map((game: Record<string, any>) => {
+                        const firstPlayer = data.players.find(
+                          (player: Record<string, any>) =>
+                            player.id === game.firstPlayerId
+                        );
+                        const secondPlayer = data.players.find(
+                          (player: Record<string, any>) =>
+                            player.id === game.secondPlayerId
+                        );
+                        const [score1, score2] =
+                          game.score !== "-"
+                            ? game.score.split("-").map(Number)
+                            : ["", ""];
 
-                      return (
-                        <div key={game.id} className="relative group">
-                          <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 opacity-25 group-hover:opacity-100 blur rounded-lg transition duration-1000 group-hover:duration-200"></div>
-                          <div className="relative bg-gray-900 p-6 rounded-lg">
-                            <div className="flex justify-between items-center space-x-4">
-                              <div className="flex flex-1 items-center space-x-3">
-                                <span className="font-medium truncate">
-                                  {firstPlayer?.name}
-                                </span>
+                        return (
+                          <div key={game.id} className="relative group">
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 opacity-25 group-hover:opacity-100 blur rounded-lg transition duration-1000 group-hover:duration-200"></div>
+                            <div className="relative bg-gray-900 p-6 rounded-lg">
+                              <div className="flex justify-between items-center space-x-4">
+                                <div className="flex flex-1 items-center space-x-3">
+                                  <span className="font-medium truncate">
+                                    {firstPlayer?.name}
+                                  </span>
+                                </div>
+                                <div className="flex items-center space-x-3">
+                                  <span className="font-bold text-2xl">
+                                    {score1}
+                                  </span>
+                                  <span
+                                    className={`${
+                                      !score1 &&
+                                      !score2 &&
+                                      score1 !== 0 &&
+                                      score2 !== 0
+                                        ? "text-red-500"
+                                        : "text-gray-400"
+                                    }`}
+                                  >
+                                    {!score1 &&
+                                    !score2 &&
+                                    score1 !== 0 &&
+                                    score2 !== 0
+                                      ? "Empty"
+                                      : "-"}
+                                  </span>
+                                  <span className="font-bold text-2xl">
+                                    {score2}
+                                  </span>
+                                </div>
+                                <div className="flex flex-1 justify-end items-center space-x-3">
+                                  <span className="font-medium truncate">
+                                    {secondPlayer?.name}
+                                  </span>
+                                </div>
                               </div>
-                              <div className="flex items-center space-x-3">
-                                <span className="font-bold text-2xl">
-                                  {score1}
-                                </span>
-                                <span className="text-gray-400">-</span>
-                                <span className="font-bold text-2xl">
-                                  {score2}
-                                </span>
-                              </div>
-                              <div className="flex flex-1 justify-end items-center space-x-3">
-                                <span className="font-medium truncate">
-                                  {secondPlayer?.name}
-                                </span>
-                              </div>
+                              {isAdmin && (
+                                <div className="flex justify-center mt-4">
+                                  <button
+                                    onClick={() => handleEdit(game)}
+                                    className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-200"
+                                  >
+                                    Edit Result
+                                  </button>
+                                </div>
+                              )}
                             </div>
-                            {isAdmin && (
-                              <div className="flex justify-center mt-4">
-                                <button
-                                  onClick={() => handleEdit(game)}
-                                  className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-200"
-                                >
-                                  Edit Result
-                                </button>
-                              </div>
-                            )}
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
       </div>
