@@ -1,21 +1,21 @@
 {
   "version": 2,
-  "routes": [
+  "rewrites": [
     {
-      "src": "/league-page",
-      "dest": "/league-page.html"
+      "source": "/league-page/*",
+      "destination": "/league-page.html"
     },
     {
-      "src": "/admin",
-      "dest": "/admin.html"
+      "source": "/admin/*",
+      "destination": "/admin.html"
     },
     {
-      "src": "/league",
-      "dest": "/league.html"
+      "source": "/league/*",
+      "destination": "/league.html"
     },
     {
-      "src": "/",
-      "dest": "/index.html"
+      "source": "/*",
+      "destination": "/index.html"
     }
   ]
 }
